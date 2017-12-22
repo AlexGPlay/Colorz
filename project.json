@@ -15,6 +15,7 @@
         "src/app.js",
         "src/GameScene.js",
         "src/Barra.js",
-        "src/Bola.js"
+        "src/Bola.js",
+        "src/Propulsor.js"
     ]
 }

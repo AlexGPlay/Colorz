@@ -3,11 +3,13 @@ var tipoBarra=1;
 var tipoSuelo=2;
 var tipoPared=3;
 var tipoBola=4;
+var tipoPropulsor=5;
 
 var GameLayer = cc.Layer.extend({
     barra : null,
     space : null,
     bola : null,
+    propulsores : [],
 
     ctor:function(){
         this._super();
@@ -26,11 +28,14 @@ var GameLayer = cc.Layer.extend({
 
         //Inicializar bola
         this.bola = new Bola(this, cc.p(50,300));
-        this.bola.body.applyImpulse(cp.v(150, 0), cp.v(0, 0));
+        this.bola.body.applyImpulse(cp.v(300, 0), cp.v(0, 0));
 
         //Inicializar gestores de colision
         this.space.addCollisionHandler(tipoBarra, tipoBola,
               null, this.colisionBolaConBarra.bind(this), null, null);
+
+        this.space.addCollisionHandler(tipoPropulsor, tipoBola,
+              null, this.colisionBolaConPropulsor.bind(this), null, null);
 
         this.cargarMapa();
         this.scheduleUpdate();
@@ -75,6 +80,33 @@ var GameLayer = cc.Layer.extend({
          // Ancho del mapa
          this.mapaAncho = this.mapa.getContentSize().width;
 
+         var grupoPropulsoresIzquierdos = this.mapa.getObjectGroup("PropulsoresIzquierda");
+         var propulsoresIzquierdosArray = grupoPropulsoresIzquierdos.getObjects();
+         for (var i = 0; i < propulsoresIzquierdosArray.length; i++) {
+             var enemigo = new Propulsor(this, cc.p(propulsoresIzquierdosArray[i]["x"],propulsoresIzquierdosArray[i]["y"]), "izquierda");
+
+             this.propulsores.push(enemigo);
+         }
+
+
+         var grupoPropulsoresDerechos = this.mapa.getObjectGroup("PropulsoresDerecha", "derecha");
+         var propulsoresDerechosArray = grupoPropulsoresDerechos.getObjects();
+         for (var i = 0; i < propulsoresDerechosArray.length; i++) {
+             var enemigo = new Propulsor(this, cc.p(propulsoresDerechosArray[i]["x"],propulsoresDerechosArray[i]["y"]));
+
+             this.propulsores.push(enemigo);
+         }
+
+
+
+         var grupoPropulsoresArriba = this.mapa.getObjectGroup("PropulsoresArriba", "arriba");
+         var propulsoresArribaArray = grupoPropulsoresArriba.getObjects();
+         for (var i = 0; i < propulsoresArribaArray.length; i++) {
+             var enemigo = new Propulsor(this, cc.p(propulsoresArribaArray[i]["x"],propulsoresArribaArray[i]["y"]));
+
+             this.propulsores.push(enemigo);
+         }
+
          // Solicitar los objeto dentro de la capa Suelos
          var grupoSuelos = this.mapa.getObjectGroup("Suelos");
          var suelosArray = grupoSuelos.getObjects();
@@ -118,12 +150,34 @@ var GameLayer = cc.Layer.extend({
              }
          }
 
+         var grupoMuros = this.mapa.getObjectGroup("Muros");
+         var murosArray = grupoMuros.getObjects();
 
+         for (var i = 0; i < murosArray.length; i++) {
+             var muro = murosArray[i];
+             var puntos = muro.polylinePoints;
+             for(var j = 0; j < puntos.length - 1; j++){
+                 var bodyMuro = new cp.StaticBody();
+
+                 var shapeMuro = new cp.SegmentShape(bodyMuro,
+                     cp.v(parseInt(muro.x) + parseInt(puntos[j].x),
+                         parseInt(muro.y) - parseInt(puntos[j].y)),
+                     cp.v(parseInt(muro.x) + parseInt(puntos[j + 1].x),
+                         parseInt(muro.y) - parseInt(puntos[j + 1].y)),
+                     10);
+                 shapeMuro.setCollisionType(tipoPared);
+                 this.space.addStaticShape(shapeMuro);
+             }
+         }
 
     },
 
     colisionBolaConBarra:function(arbiter, space){
         this.bola.rebotar();
+    },
+
+    colisionBolaConPropulsor:function(arbiter, space){
+        console.log("Colision con propulsor");
     },
 
     update : function(dt){

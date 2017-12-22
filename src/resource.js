@@ -6,7 +6,8 @@ var res = {
     boton_jugar_png : "res/boton_jugar.png",
     barra_png : "res/barra.png",
     mapa1_tmx : "res/mapa1.tmx",
-    bola_png : "res/bola.png"
+    bola_png : "res/bola.png",
+    propulsor_png : "res/propulsor.png"
 };
 
 var g_resources = [];
