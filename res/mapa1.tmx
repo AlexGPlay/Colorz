@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32" nextobjectid="78">
+ <tileset firstgid="1" name="tiles32" tilewidth="32" tileheight="32" tilecount="98" columns="14">
+  <image source="../../infinitePlantilla/res/tiles32.png" width="448" height="224"/>
+ </tileset>
+ <objectgroup name="Suelos">
+  <object id="62" x="-1" y="639">
+   <polyline points="0,0 801,1"/>
+  </object>
+  <object id="65" x="0" y="-2">
+   <polyline points="0,0 800,1"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Muros">
+  <object id="66" x="575" y="638">
+   <polyline points="0,0 3,-187"/>
+  </object>
+  <object id="67" x="688" y="543">
+   <polyline points="0,0 -5,-414"/>
+  </object>
+  <object id="68" x="686" y="128">
+   <polyline points="0,0 -587,63"/>
+  </object>
+  <object id="69" x="96" y="192">
+   <polyline points="0,0 -1,63"/>
+  </object>
+  <object id="70" x="1" y="354">
+   <polyline points="0,0 97,-3"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="PropulsoresDerecha">
+  <object id="75" x="581" y="562" width="100" height="75"/>
+ </objectgroup>
+ <objectgroup name="PropulsoresArriba">
+  <object id="76" x="696" y="561.5" width="100" height="75"/>
+ </objectgroup>
+ <objectgroup name="PropulsoresIzquierda">
+  <object id="77" x="689" y="24.5" width="100" height="75"/>
+ </objectgroup>
+ <objectgroup name="Paredes">
+  <object id="63" x="-1" y="637">
+   <polyline points="0,0 1,-636"/>
+  </object>
+  <object id="64" x="799" y="639">
+   <polyline points="0,0 2,-640"/>
+  </object>
+ </objectgroup>
+</map>

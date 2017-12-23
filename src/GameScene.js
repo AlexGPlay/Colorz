@@ -8,8 +8,9 @@ var tipoPropulsor=5;
 var GameLayer = cc.Layer.extend({
     barra : null,
     space : null,
-    bola : null,
+    bolas : [],
     propulsores : [],
+    bolasEliminar : [],
 
     ctor:function(){
         this._super();
@@ -27,8 +28,8 @@ var GameLayer = cc.Layer.extend({
         this.barra = new Barra(this, cc.p(50,15));
 
         //Inicializar bola
-        this.bola = new Bola(this, cc.p(50,300));
-        this.bola.body.applyImpulse(cp.v(300, 0), cp.v(0, 0));
+        for(i=0;i<20;i++)
+            this.bolas.push(new Bola(this, cc.p(300,500)));
 
         //Inicializar gestores de colision
         this.space.addCollisionHandler(tipoBarra, tipoBola,
@@ -36,6 +37,9 @@ var GameLayer = cc.Layer.extend({
 
         this.space.addCollisionHandler(tipoPropulsor, tipoBola,
               null, this.colisionBolaConPropulsor.bind(this), null, null);
+
+        this.space.addCollisionHandler(tipoSuelo, tipoBola,
+              null, this.colisionBolaConSuelo.bind(this), null, null);
 
         this.cargarMapa();
         this.scheduleUpdate();
@@ -92,7 +96,7 @@ var GameLayer = cc.Layer.extend({
          var grupoPropulsoresDerechos = this.mapa.getObjectGroup("PropulsoresDerecha", "derecha");
          var propulsoresDerechosArray = grupoPropulsoresDerechos.getObjects();
          for (var i = 0; i < propulsoresDerechosArray.length; i++) {
-             var enemigo = new Propulsor(this, cc.p(propulsoresDerechosArray[i]["x"],propulsoresDerechosArray[i]["y"]));
+             var enemigo = new Propulsor(this, cc.p(propulsoresDerechosArray[i]["x"],propulsoresDerechosArray[i]["y"]), "derecha");
 
              this.propulsores.push(enemigo);
          }
@@ -102,7 +106,7 @@ var GameLayer = cc.Layer.extend({
          var grupoPropulsoresArriba = this.mapa.getObjectGroup("PropulsoresArriba", "arriba");
          var propulsoresArribaArray = grupoPropulsoresArriba.getObjects();
          for (var i = 0; i < propulsoresArribaArray.length; i++) {
-             var enemigo = new Propulsor(this, cc.p(propulsoresArribaArray[i]["x"],propulsoresArribaArray[i]["y"]));
+             var enemigo = new Propulsor(this, cc.p(propulsoresArribaArray[i]["x"],propulsoresArribaArray[i]["y"]), "arriba");
 
              this.propulsores.push(enemigo);
          }
@@ -173,15 +177,70 @@ var GameLayer = cc.Layer.extend({
     },
 
     colisionBolaConBarra:function(arbiter, space){
-        this.bola.rebotar();
+        var shapes = arbiter.getShapes();
+
+        for(i=0;i<this.bolas.length;i++){
+            for(j=0;j<shapes.length;j++){
+                if(this.bolas[i].shape == shapes[j]){
+                    this.bolas[i].rebotar();
+                }
+            }
+        }
+
     },
 
     colisionBolaConPropulsor:function(arbiter, space){
-        console.log("Colision con propulsor");
+        var shapes = arbiter.getShapes();
+        var propulsor = null;
+
+        for(i=0;i<this.propulsores.length;i++){
+            for(j=0;j<shapes.length;j++){
+                if(this.propulsores[i].shape == shapes[j]){
+                    propulsor = this.propulsores[i];
+                }
+            }
+        }
+
+        for(i=0;i<this.bolas.length;i++){
+            for(j=0;j<shapes.length;j++){
+                if(this.bolas[i].shape == shapes[j]){
+                    propulsor.impulsar(this.bolas[i]);
+                }
+            }
+        }
+
+    },
+
+    colisionBolaConSuelo:function(arbiter,space){
+        var shapes = arbiter.getShapes();
+
+        for(i=0;i<this.bolas.length;i++){
+            for(j=0;j<shapes.length;j++){
+                if(this.bolas[i].shape == shapes[j]){
+                    this.bolasEliminar.push(this.bolas[i]);
+                }
+            }
+        }
     },
 
     update : function(dt){
         this.space.step(dt);
+
+        for(i=0;i<this.bolasEliminar.length;i++){
+            var shape = this.bolasEliminar[i].shape;
+
+            for (var j = 0; j < this.bolas.length; j++) {
+                if (this.bolas[j].shape == shape) {
+                    this.bolas[j].eliminar();
+                    this.bolas.splice(j, 1);
+                }
+            }
+
+
+        }
+
+        this.bolasEliminar = [];
+
     }
 
 

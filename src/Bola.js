@@ -45,6 +45,11 @@ var Bola = cc.Class.extend({
 
         this.body.applyImpulse(cp.v(0, impulso), cp.v(0, 0));
         rebote++;
+    },
+
+    eliminar:function(){
+        this.gameLayer.space.removeShape(this.shape);
+        this.gameLayer.removeChild(this.sprite);
     }
 
 });
