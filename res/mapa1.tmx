@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="90">
- <tileset firstgid="1" name="tiles32" tilewidth="32" tileheight="32" tilecount="0" columns="14">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="94">
+ <tileset firstgid="1" name="tiles32" tilewidth="32" tileheight="32" tilecount="98" columns="14">
   <image source="../../infinitePlantilla/res/tiles32.png" width="448" height="224"/>
  </tileset>
  <objectgroup name="FalsoSuelo">
@@ -16,6 +16,14 @@
    <polyline points="0,0 105,1"/>
   </object>
  </objectgroup>
+ <objectgroup name="Canon">
+  <object id="90" x="5" y="271.5" width="100" height="75"/>
+ </objectgroup>
+ <objectgroup name="Cierre">
+  <object id="91" x="95" y="255">
+   <polyline points="0,0 -95,0"/>
+  </object>
+ </objectgroup>
  <objectgroup name="Suelos">
   <object id="80" x="1" y="800">
    <polyline points="0,0 801,-1"/>
@@ -28,14 +36,11 @@
   <object id="67" x="688" y="543">
    <polyline points="0,0 -5,-414"/>
   </object>
-  <object id="68" x="686" y="128">
-   <polyline points="0,0 -587,63"/>
-  </object>
-  <object id="69" x="96" y="192">
-   <polyline points="0,0 -1,63"/>
-  </object>
   <object id="70" x="1" y="354">
    <polyline points="0,0 97,-3"/>
+  </object>
+  <object id="93" x="50" y="255">
+   <polyline points="0,0 -2,-63 633,-125"/>
   </object>
  </objectgroup>
  <objectgroup name="PropulsoresDerecha">

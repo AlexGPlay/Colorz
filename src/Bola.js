@@ -36,23 +36,35 @@ var Bola = cc.Class.extend({
         gameLayer.space.addBody(this.body);
         gameLayer.addChild(this.sprite,10);
 
-        rebote = 1;
-        puntos =1;
+        this.rebote = 1;
+        this.puntos =1;
     },
 
     rebotar:function(){
-        impulso = 1000/rebote;
+        impulso = 1000/this.rebote;
 
         if(impulso<400)
             impulso = 400;
 
         this.body.applyImpulse(cp.v(0, impulso), cp.v(0, 0));
-        rebote++;
+        this.rebote++;
     },
 
     eliminar:function(){
         this.gameLayer.space.removeShape(this.shape);
         this.gameLayer.removeChild(this.sprite);
+    },
+
+    getPuntos:function(){
+        return this.puntos;
+    },
+
+    isYaPuntuo:function(){
+        return this.yaPuntuo;
+    },
+
+    setYaPuntuo:function(puntuo){
+        this.yaPuntuo = puntuo;
     }
 
 });

@@ -17,6 +17,7 @@
         "src/Barra.js",
         "src/Bola.js",
         "src/Propulsor.js",
-        "src/ControlLayer.js"
+        "src/ControlLayer.js",
+        "src/Cannon.js"
     ]
 }
