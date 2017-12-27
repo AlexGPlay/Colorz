@@ -130,6 +130,7 @@ var GameLayer = cc.Layer.extend({
                          parseInt(suelo.y) - parseInt(puntos[j + 1].y)),
                      10);
                  shapeSuelo.setCollisionType(tipoSuelo);
+                 shapeSuelo.setFriction(1);
                  this.space.addStaticShape(shapeSuelo);
              }
          }
