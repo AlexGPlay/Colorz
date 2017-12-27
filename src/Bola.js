@@ -4,6 +4,8 @@ var Bola = cc.Class.extend({
     body:null,
     shape:null,
     rebote:null,
+    puntos: null,
+    yaPuntuo: false,
 
     ctor:function (gameLayer, posicion) {
         this.gameLayer = gameLayer;
@@ -35,6 +37,7 @@ var Bola = cc.Class.extend({
         gameLayer.addChild(this.sprite,10);
 
         rebote = 1;
+        puntos =1;
     },
 
     rebotar:function(){

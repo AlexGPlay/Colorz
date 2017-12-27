@@ -5,6 +5,7 @@ var tipoPared=3;
 var tipoBola=4;
 var tipoPropulsor=5;
 var tipoFalsoSuelo=6;
+var tipoBarraPuntos=7;
 
 var GameLayer = cc.Layer.extend({
     barra : null,
@@ -12,6 +13,7 @@ var GameLayer = cc.Layer.extend({
     bolas : [],
     propulsores : [],
     bolasEliminar : [],
+    puntuacion:0,
 
     ctor:function(){
         this._super();
@@ -45,6 +47,8 @@ var GameLayer = cc.Layer.extend({
         this.space.addCollisionHandler(tipoFalsoSuelo, tipoBola,
               null, this.colisionBolaConFalsoSuelo.bind(this), null, null);
 
+        this.space.addCollisionHandler(tipoBola, tipoBarraPuntos,
+                      null, this.colisionBolaConBarraPuntos.bind(this), null, null);
         this.cargarMapa();
         this.scheduleUpdate();
 
@@ -138,6 +142,29 @@ var GameLayer = cc.Layer.extend({
                  this.space.addStaticShape(shapeSuelo);
              }
          }
+                  // Solicitar los objeto dentro de la capa Suelos
+                  var grupoPuntos = this.mapa.getObjectGroup("BarraPuntos");
+                  var puntosArray = grupoPuntos.getObjects();
+
+                  // Los objetos de la capa suelos se transforman a
+                  // formas estáticas de Chipmunk ( SegmentShape ).
+                  for (var i = 0; i < puntosArray.length; i++) {
+                      var suelo = puntosArray[i];
+                      var puntos = suelo.polylinePoints;
+                      for(var j = 0; j < puntos.length - 1; j++){
+                          var bodySuelo = new cp.StaticBody();
+
+                          var shapeSuelo = new cp.SegmentShape(bodySuelo,
+                              cp.v(parseInt(suelo.x) + parseInt(puntos[j].x),
+                                  parseInt(suelo.y) - parseInt(puntos[j].y)),
+                              cp.v(parseInt(suelo.x) + parseInt(puntos[j + 1].x),
+                                  parseInt(suelo.y) - parseInt(puntos[j + 1].y)),
+                              10);
+                          shapeSuelo.setCollisionType(tipoBarraPuntos);
+                          this.space.addStaticShape(shapeSuelo);
+                      }
+                  }
+
 
          var grupoParedes = this.mapa.getObjectGroup("Paredes");
          var paredesArray = grupoParedes.getObjects();
@@ -214,6 +241,22 @@ var GameLayer = cc.Layer.extend({
         }
 
     },
+    colisionBolaConBarraPuntos:function(arbiter, space){
+    var shapes = arbiter.getShapes();
+
+            for(i=0;i<this.bolas.length;i++){
+                for(j=0;j<shapes.length;j++){
+                    if(this.bolas[i].shape == shapes[j]){
+                        this.puntuacion+=this.bolas[i].puntos;
+                        this.getParent().getChildByTag(idCapaControles).updateNumeroPuntos(this.puntuacion);
+
+                    }
+                }
+            }
+
+
+
+    },
 
     colisionBolaConPropulsor:function(arbiter, space){
         var shapes = arbiter.getShapes();
@@ -275,11 +318,14 @@ var GameLayer = cc.Layer.extend({
 
 
 });
-
+var idCapaControles=2;
 var GameScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
         var layer = new GameLayer();
         this.addChild(layer, 0, idCapaJuego);
+
+        var controlLayer = new ControlLayer();
+        this.addChild(controlLayer, 0, idCapaControles);
     }
 });
