@@ -39,12 +39,12 @@ var Barra = cc.Class.extend({
 
     moverDerecha:function(){
         console.log("Ir derecha ");
-        this.body.applyImpulse(cp.v(200, 0), cp.v(0, 0));
+        this.body.applyImpulse(cp.v(400, 0), cp.v(0, 0));
     },
 
     moverIzquierda:function(){
         console.log("Ir izquierda ");
-        this.body.applyImpulse(cp.v(-200, 0), cp.v(0, 0));
+        this.body.applyImpulse(cp.v(-400, 0), cp.v(0, 0));
     },
 
 });

@@ -4,6 +4,7 @@ var tipoSuelo=2;
 var tipoPared=3;
 var tipoBola=4;
 var tipoPropulsor=5;
+var tipoFalsoSuelo=6;
 
 var GameLayer = cc.Layer.extend({
     barra : null,
@@ -25,11 +26,11 @@ var GameLayer = cc.Layer.extend({
         this.addChild(this.depuracion, 10);
 
         //Inicializar barra
-        this.barra = new Barra(this, cc.p(50,15));
+        this.barra = new Barra(this, cc.p(50,200));
 
         //Inicializar bola
         for(i=0;i<20;i++)
-            this.bolas.push(new Bola(this, cc.p(300,500)));
+            this.bolas.push(new Bola(this, cc.p(300,700)));
 
         //Inicializar gestores de colision
         this.space.addCollisionHandler(tipoBarra, tipoBola,
@@ -40,6 +41,9 @@ var GameLayer = cc.Layer.extend({
 
         this.space.addCollisionHandler(tipoSuelo, tipoBola,
               null, this.colisionBolaConSuelo.bind(this), null, null);
+
+        this.space.addCollisionHandler(tipoFalsoSuelo, tipoBola,
+              null, this.colisionBolaConFalsoSuelo.bind(this), null, null);
 
         this.cargarMapa();
         this.scheduleUpdate();
@@ -112,7 +116,7 @@ var GameLayer = cc.Layer.extend({
          }
 
          // Solicitar los objeto dentro de la capa Suelos
-         var grupoSuelos = this.mapa.getObjectGroup("Suelos");
+         var grupoSuelos = this.mapa.getObjectGroup("FalsoSuelo");
          var suelosArray = grupoSuelos.getObjects();
 
          // Los objetos de la capa suelos se transforman a
@@ -129,7 +133,7 @@ var GameLayer = cc.Layer.extend({
                      cp.v(parseInt(suelo.x) + parseInt(puntos[j + 1].x),
                          parseInt(suelo.y) - parseInt(puntos[j + 1].y)),
                      10);
-                 shapeSuelo.setCollisionType(tipoSuelo);
+                 shapeSuelo.setCollisionType(tipoFalsoSuelo);
                  shapeSuelo.setFriction(1);
                  this.space.addStaticShape(shapeSuelo);
              }
@@ -172,6 +176,27 @@ var GameLayer = cc.Layer.extend({
                      10);
                  shapeMuro.setCollisionType(tipoPared);
                  this.space.addStaticShape(shapeMuro);
+             }
+         }
+
+         var grupoFalsoSuelo = this.mapa.getObjectGroup("Suelos");
+         var falsoSueloArray = grupoFalsoSuelo.getObjects();
+
+         for (var i = 0; i < falsoSueloArray.length; i++) {
+             var falsoSuelo = falsoSueloArray[i];
+             var puntos = falsoSuelo.polylinePoints;
+             for(var j = 0; j < puntos.length - 1; j++){
+                 var bodyFalsoSuelo = new cp.StaticBody();
+
+                 var shapeFalsoSuelo = new cp.SegmentShape(bodyFalsoSuelo,
+                     cp.v(parseInt(falsoSuelo.x) + parseInt(puntos[j].x),
+                         parseInt(falsoSuelo.y) - parseInt(puntos[j].y)),
+                     cp.v(parseInt(falsoSuelo.x) + parseInt(puntos[j + 1].x),
+                         parseInt(falsoSuelo.y) - parseInt(puntos[j + 1].y)),
+                     10);
+                 shapeFalsoSuelo.setCollisionType(tipoSuelo);
+                 shapeFalsoSuelo.setFriction(1);
+                 this.space.addStaticShape(shapeFalsoSuelo);
              }
          }
 
@@ -224,6 +249,8 @@ var GameLayer = cc.Layer.extend({
         }
     },
 
+    colisionBolaConFalsoSuelo:function(arbiter,space){ },
+
     update : function(dt){
         this.space.step(dt);
 
@@ -242,6 +269,7 @@ var GameLayer = cc.Layer.extend({
 
         this.bolasEliminar = [];
 
+        this.setPosition(cc.p( 0, -150));
     }
 
 
