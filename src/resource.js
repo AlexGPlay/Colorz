@@ -7,6 +7,7 @@ var res = {
     barra_png : "res/barra.png",
     mapa1_tmx : "res/mapa1.tmx",
     bola_png : "res/bola.png",
+    bola_2_png : "res/bola_2.png",
     propulsor_png : "res/propulsor.png"
 };
 

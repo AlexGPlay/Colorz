@@ -18,6 +18,7 @@
         "src/Bola.js",
         "src/Propulsor.js",
         "src/ControlLayer.js",
-        "src/Cannon.js"
+        "src/Cannon.js",
+        "src/PU_AumentarPuntos.js"
     ]
 }

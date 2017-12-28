@@ -6,6 +6,7 @@ var Bola = cc.Class.extend({
     rebote:null,
     puntos: null,
     yaPuntuo: false,
+    powerUpped : false,
 
     ctor:function (gameLayer, posicion) {
         this.gameLayer = gameLayer;
@@ -59,12 +60,29 @@ var Bola = cc.Class.extend({
         return this.puntos;
     },
 
+    setPuntos:function(puntos){
+        this.puntos = puntos;
+
+        if(this.puntos==2){
+            //this.sprite = new cc.PhysicsSprite("res/bola_2.png");
+        }
+
+    },
+
     isYaPuntuo:function(){
         return this.yaPuntuo;
     },
 
     setYaPuntuo:function(puntuo){
         this.yaPuntuo = puntuo;
+    },
+
+    isPowerUpped:function(){
+        return this.powerUpped;
+    },
+
+    setPowerUpped:function(powerUpped){
+        this.powerUpped = powerUpped;
     }
 
 });

@@ -7,6 +7,7 @@ var tipoPropulsor=5;
 var tipoFalsoSuelo=6;
 var tipoBarraPuntos=7;
 var tipoCanon=8;
+var tipoPowerUp=9;
 
 var GameLayer = cc.Layer.extend({
     barra : null,
@@ -14,6 +15,8 @@ var GameLayer = cc.Layer.extend({
     bolas : [],
     propulsores : [],
     bolasEliminar : [],
+    powerUps : [],
+    selectedPowerUp : null,
     puntuacion:null,
     canon:null,
     cierre : [],
@@ -57,6 +60,9 @@ var GameLayer = cc.Layer.extend({
 
         this.space.addCollisionHandler(tipoBola, tipoCanon,
                       null, this.colisionBolaConCanon.bind(this), null, null);
+
+        this.space.addCollisionHandler(tipoBola, tipoPowerUp,
+                      null, this.colisionBolaConPU.bind(this), null, null);
 
         this.puntuacion = 0;
         this.cierreQuitado = false;
@@ -127,6 +133,14 @@ var GameLayer = cc.Layer.extend({
          for (var i = 0; i < propulsoresArribaArray.length; i++) {
              this.canon = new Cannon(this, cc.p(propulsoresArribaArray[i]["x"],propulsoresArribaArray[i]["y"]));
          }
+
+         var grupoPowerUp = this.mapa.getObjectGroup("PowerUp");
+         var powerUpArray = grupoPowerUp.getObjects();
+         for (var i = 0; i < powerUpArray.length; i++) {
+             this.powerUps.push( new PU_AumentarPuntos(this, cc.p(powerUpArray[i]["x"],powerUpArray[i]["y"])) );
+         }
+
+         this.selectedPowerUp = this.powerUps[0];
 
          // Solicitar los objeto dentro de la capa Suelos
          var grupoSuelos = this.mapa.getObjectGroup("FalsoSuelo");
@@ -331,6 +345,19 @@ var GameLayer = cc.Layer.extend({
                 if(this.bolas[i].shape == shapes[j]){
                     this.canon.impulsar(this.bolas[i]);
                     this.bolas[i].setYaPuntuo(false);
+                    this.bolas[i].setPowerUpped(false);
+                }
+            }
+        }
+    },
+
+    colisionBolaConPU:function(arbiter,space){
+        var shapes = arbiter.getShapes();
+
+        for(i=0;i<this.bolas.length;i++){
+            for(j=0;j<shapes.length;j++){
+                if(this.bolas[i].shape == shapes[j]){
+                    this.selectedPowerUp.doStuff(this.bolas[i]);
                 }
             }
         }

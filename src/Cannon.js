@@ -58,7 +58,7 @@ var Cannon = cc.Class.extend({
     update:function(dt){
         this.tiempoEspera += dt;
 
-        if(this.bolasDisparadas>=this.bolas){
+        if( this.getBolas()<=0 ){
             this.tiempo= Math.random()+1;
             this.tiempoEspera=0;
 
