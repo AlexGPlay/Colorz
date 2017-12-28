@@ -18,6 +18,7 @@ var GameLayer = cc.Layer.extend({
     canon:null,
     cierre : [],
     cierreQuitado : null,
+    keyPulsada : null,
 
     ctor:function(){
         this._super();
@@ -74,14 +75,6 @@ var GameLayer = cc.Layer.extend({
                     return;
 
                 instancia.keyPulsada = keyCode;
-
-                if( keyCode == 37){
-                    instancia.barra.moverIzquierda();
-                }
-
-                if( keyCode == 39){
-                     instancia.barra.moverDerecha();
-                }
 
             },
             onKeyReleased: function(keyCode, event){
@@ -391,6 +384,14 @@ var GameLayer = cc.Layer.extend({
 
         else{
             this.abrirCierre();
+        }
+
+        if( this.keyPulsada == 37){
+            this.barra.moverIzquierda();
+        }
+
+        if( this.keyPulsada == 39){
+             this.barra.moverDerecha();
         }
     }
 
