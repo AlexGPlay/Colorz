@@ -8,7 +8,8 @@ var res = {
     mapa1_tmx : "res/mapa1.tmx",
     bola_png : "res/bola.png",
     bola_2_png : "res/bola_2.png",
-    propulsor_png : "res/propulsor.png"
+    propulsor_png : "res/propulsor.png",
+    pu_puntos_1_png : "res/pu_puntos_1.png"
 };
 
 var g_resources = [];

@@ -10,14 +10,14 @@ var PU_AumentarPuntos = cc.Class.extend({
         this.gameLayer = gameLayer;
 
         // Crear Sprite - Cuerpo y forma
-        this.sprite = new cc.PhysicsSprite("res/propulsor.png");
+        this.sprite = new cc.PhysicsSprite("res/pu_puntos_1.png");
         // Cuerpo estática , no le afectan las fuerzas
         // Cuerpo dinámico, SI le afectan las fuerzas
         this.body = new cp.Body(Infinity,Infinity);
         //gameLayer.space.addBody(body);
 
-        posicion.x += 50;
-        posicion.y += 37;
+        posicion.x += 40;
+        posicion.y += 40;
 
         this.body.setPos(posicion);
         this.body.setAngle(0);
