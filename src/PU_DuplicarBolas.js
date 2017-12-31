@@ -1,4 +1,4 @@
-var PU_AumentarPuntos = cc.Class.extend({
+var PU_Duplicar = cc.Class.extend({
     gameLayer:null,
     sprite:null,
     body:null,
@@ -6,13 +6,15 @@ var PU_AumentarPuntos = cc.Class.extend({
     tiempo:null,
     tiempoEnPantalla:null,
     animacionBucle:null,
+    posicion:null,
 
     ctor:function (gameLayer, posicion) {
         this.gameLayer = gameLayer;
+        this.posicion = posicion;
 
         var framesAnimacion = [];
-        for (var i = 1; i <= 7; i++) {
-            var str = "pu_puntos_" + i + ".png";
+        for (var i = 1; i <= 6; i++) {
+            var str = "pu_duplicar_" + i + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(str);
             framesAnimacion.push(frame);
         }
@@ -20,7 +22,7 @@ var PU_AumentarPuntos = cc.Class.extend({
         this.animacionBucle = new cc.RepeatForever(new cc.Animate(animacion));
 
         // Crear Sprite - Cuerpo y forma
-        this.sprite = new cc.PhysicsSprite("#pu_puntos_1.png");
+        this.sprite = new cc.PhysicsSprite("#pu_duplicar_1.png");
         // Cuerpo estática , no le afectan las fuerzas
         // Cuerpo dinámico, SI le afectan las fuerzas
         this.body = new cp.Body(Infinity,Infinity);
@@ -49,9 +51,9 @@ var PU_AumentarPuntos = cc.Class.extend({
     },
 
     doStuff:function(bola){
-        //bola.setPuntos(bola.getPuntos()+1);
         if(bola.isPowerUpped()==false){
-            bola.setPuntos(bola.getPuntos()+1);
+            var position = cc.p(this.posicion.x,this.posicion.y);
+            this.gameLayer.bolasToAdd.push(position);
             bola.setPowerUpped(true);
         }
 
@@ -70,7 +72,7 @@ var PU_AumentarPuntos = cc.Class.extend({
         this.gameLayer.addChild(this.sprite,10);
         this.sprite.runAction(this.animacionBucle);
 
-        this.tiempo=5;
+        this.tiempo=60;
         this.tiempoEnPantalla=0;
     },
 

@@ -10,7 +10,9 @@ var res = {
     bola_2_png : "res/bola_2.png",
     propulsor_png : "res/propulsor.png",
     pu_puntos_png : "res/pu_puntos.png",
-    pu_puntos_plist : "res/pu_puntos.plist"
+    pu_puntos_plist : "res/pu_puntos.plist",
+    pu_duplicar_png : "res/pu_duplicar.png",
+    pu_duplicar_plist : "res/pu_duplicar.plist"
 };
 
 var g_resources = [];

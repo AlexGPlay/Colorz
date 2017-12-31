@@ -15,6 +15,7 @@ var GameLayer = cc.Layer.extend({
     bolas : [],
     propulsores : [],
     bolasEliminar : [],
+    bolasToAdd : [],
     powerUps : [],
     selectedPowerUp : null,
     puntuacion:null,
@@ -22,6 +23,9 @@ var GameLayer = cc.Layer.extend({
     cierre : [],
     cierreQuitado : null,
     keyPulsada : null,
+    activePowerUp : false,
+    time : null,
+    timeToPowerUp : null,
 
     ctor:function(){
         this._super();
@@ -31,8 +35,13 @@ var GameLayer = cc.Layer.extend({
         this.space = new cp.Space();
         this.space.gravity = cp.v(0,-350);
 
+        //Inicializar variables power ups
+        this.time = 0;
+        this.timeToPowerUp = 10;
+
         //Cachear sprites
         cc.spriteFrameCache.addSpriteFrames(res.pu_puntos_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.pu_duplicar_plist);
 
         //Depuracion
         this.depuracion = new cc.PhysicsDebugNode(this.space);
@@ -141,9 +150,8 @@ var GameLayer = cc.Layer.extend({
          var powerUpArray = grupoPowerUp.getObjects();
          for (var i = 0; i < powerUpArray.length; i++) {
              this.powerUps.push( new PU_AumentarPuntos(this, cc.p(powerUpArray[i]["x"],powerUpArray[i]["y"])) );
+             this.powerUps.push( new PU_Duplicar(this, cc.p(powerUpArray[i]["x"],powerUpArray[i]["y"])) );
          }
-
-         this.selectedPowerUp = this.powerUps[0];
 
          // Solicitar los objeto dentro de la capa Suelos
          var grupoSuelos = this.mapa.getObjectGroup("FalsoSuelo");
@@ -288,6 +296,7 @@ var GameLayer = cc.Layer.extend({
         }
 
     },
+
     colisionBolaConBarraPuntos:function(arbiter, space){
     var shapes = arbiter.getShapes();
 
@@ -405,6 +414,14 @@ var GameLayer = cc.Layer.extend({
 
         this.bolasEliminar = [];
 
+        for(i=0;i<this.bolasToAdd.length;i++){
+            var temp = new Bola(this, this.bolasToAdd[i]);
+            temp.setPowerUpped(true);
+            this.bolas.push(temp);
+        }
+
+        this.bolasToAdd = [];
+
         this.setPosition(cc.p( 0, -150));
         this.canon.update(dt);
 
@@ -423,6 +440,31 @@ var GameLayer = cc.Layer.extend({
         if( this.keyPulsada == 39){
              this.barra.moverDerecha();
         }
+
+        if(!this.activePowerUp){
+            this.time += dt;
+
+            if(this.timeToPowerUp<=this.time){
+                this.selectedPowerUp = this.powerUps[Math.floor(Math.random() * this.powerUps.length)];
+                this.activePowerUp = true;
+                this.selectedPowerUp.addToSpace();
+            }
+
+        }
+
+        if(this.activePowerUp){
+            this.selectedPowerUp.update(dt);
+
+            if(this.selectedPowerUp.timeToDisappear()){
+                this.selectedPowerUp.removeFromSpace();
+                this.activePowerUp = false;
+
+                this.time = 0;
+                this.timeToPowerUp = 5;
+            }
+
+        }
+
     }
 
 
