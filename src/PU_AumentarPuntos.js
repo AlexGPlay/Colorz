@@ -9,8 +9,17 @@ var PU_AumentarPuntos = cc.Class.extend({
     ctor:function (gameLayer, posicion) {
         this.gameLayer = gameLayer;
 
+        var framesAnimacion = [];
+        for (var i = 1; i <= 6; i++) {
+            var str = "pu_puntos_" + i + ".png";
+            var frame = cc.spriteFrameCache.getSpriteFrame(str);
+            framesAnimacion.push(frame);
+        }
+        var animacion = new cc.Animation(framesAnimacion, 0.2);
+        var actionAnimacionBucle = new cc.RepeatForever(new cc.Animate(animacion));
+
         // Crear Sprite - Cuerpo y forma
-        this.sprite = new cc.PhysicsSprite("res/pu_puntos_1.png");
+        this.sprite = new cc.PhysicsSprite("#pu_puntos_1.png");
         // Cuerpo estática , no le afectan las fuerzas
         // Cuerpo dinámico, SI le afectan las fuerzas
         this.body = new cp.Body(Infinity,Infinity);
@@ -32,6 +41,7 @@ var PU_AumentarPuntos = cc.Class.extend({
         gameLayer.space.addShape(this.shape);
 
         this.sprite.setBody(this.body);
+        this.sprite.runAction(actionAnimacionBucle);
 
         //gameLayer.space.addBody(this.body);
         gameLayer.addChild(this.sprite,10);

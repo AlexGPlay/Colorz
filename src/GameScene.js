@@ -31,6 +31,9 @@ var GameLayer = cc.Layer.extend({
         this.space = new cp.Space();
         this.space.gravity = cp.v(0,-350);
 
+        //Cachear sprites
+        cc.spriteFrameCache.addSpriteFrames(res.pu_puntos_plist);
+
         //Depuracion
         this.depuracion = new cc.PhysicsDebugNode(this.space);
         this.addChild(this.depuracion, 10);
