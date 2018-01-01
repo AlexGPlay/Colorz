@@ -51,7 +51,7 @@ var PU_AumentarPuntos = cc.Class.extend({
     doStuff:function(bola){
         //bola.setPuntos(bola.getPuntos()+1);
         if(bola.isPowerUpped()==false){
-            bola.setPuntos(bola.getPuntos()+1);
+            bola.updatePoints();
             bola.setPowerUpped(true);
         }
 

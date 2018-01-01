@@ -53,7 +53,8 @@ var PU_Duplicar = cc.Class.extend({
     doStuff:function(bola){
         if(bola.isPowerUpped()==false){
             var position = cc.p(this.posicion.x,this.posicion.y);
-            this.gameLayer.bolasToAdd.push(position);
+            var bloque = {posicion:position, tipo:bola.getTipo()};
+            this.gameLayer.bolasToAdd.push(bloque);
             bola.setPowerUpped(true);
         }
 
@@ -72,7 +73,7 @@ var PU_Duplicar = cc.Class.extend({
         this.gameLayer.addChild(this.sprite,10);
         this.sprite.runAction(this.animacionBucle);
 
-        this.tiempo=60;
+        this.tiempo=30;
         this.tiempoEnPantalla=0;
     },
 

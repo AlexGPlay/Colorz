@@ -1,4 +1,4 @@
-var Bola = cc.Class.extend({
+var BolaMala = cc.Class.extend({
     gameLayer:null,
     sprite:null,
     body:null,
@@ -12,7 +12,7 @@ var Bola = cc.Class.extend({
         this.gameLayer = gameLayer;
 
         // Crear Sprite - Cuerpo y forma
-        this.sprite = new cc.PhysicsSprite("res/bola.png");
+        this.sprite = new cc.PhysicsSprite("res/bola_mala.png");
         // Cuerpo estática , no le afectan las fuerzas
         // Cuerpo dinámico, SI le afectan las fuerzas
         this.body = new cp.Body(5, cp.momentForBox(1,
@@ -38,7 +38,7 @@ var Bola = cc.Class.extend({
         gameLayer.addChild(this.sprite,10);
 
         this.rebote = 1;
-        this.puntos =1;
+        this.puntos =-1;
     },
 
     rebotar:function(){
@@ -65,11 +65,7 @@ var Bola = cc.Class.extend({
     },
 
     updatePoints:function(){
-        this.puntos++;
-
-        if(this.puntos==2){
-        }
-
+        this.puntos--;
     },
 
     isYaPuntuo:function(){
@@ -89,7 +85,7 @@ var Bola = cc.Class.extend({
     },
 
     getTipo:function(){
-        return 0;
+        return 1;
     }
 
 });

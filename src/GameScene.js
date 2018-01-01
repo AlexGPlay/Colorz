@@ -54,6 +54,10 @@ var GameLayer = cc.Layer.extend({
         for(i=0;i<20;i++)
             this.bolas.push(new Bola(this, cc.p(300,700)));
 
+        //Inicializar bolas malas
+        for(i=0;i<5;i++)
+            this.bolas.push(new BolaMala(this, cc.p(300,700)));
+
         //Inicializar gestores de colision
         this.space.addCollisionHandler(tipoBarra, tipoBola,
               null, this.colisionBolaConBarra.bind(this), null, null);
@@ -415,7 +419,14 @@ var GameLayer = cc.Layer.extend({
         this.bolasEliminar = [];
 
         for(i=0;i<this.bolasToAdd.length;i++){
-            var temp = new Bola(this, this.bolasToAdd[i]);
+            var temp = null;
+
+            if(this.bolasToAdd[i].tipo==0)
+                temp = new Bola(this, this.bolasToAdd[i].posicion);
+
+            else if(this.bolasToAdd[i].tipo==1)
+                temp = new BolaMala(this, this.bolasToAdd[i].posicion);
+
             temp.setPowerUpped(true);
             this.bolas.push(temp);
         }
