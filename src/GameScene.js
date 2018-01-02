@@ -158,7 +158,7 @@ var GameLayer = cc.Layer.extend({
          for (var i = 0; i < barrasEnemigasArray.length; i++) {
              var enemigo = new BarraEnemiga(this, cc.p(barrasEnemigasArray[i]["x"],barrasEnemigasArray[i]["y"]));
 
-             this.propulsores.push(enemigo);
+             this.barrasEnemigas.push(enemigo);
          }
 
          var grupoPowerUp = this.mapa.getObjectGroup("PowerUp");
