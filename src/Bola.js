@@ -3,7 +3,6 @@ var Bola = cc.Class.extend({
     sprite:null,
     body:null,
     shape:null,
-    rebote:null,
     puntos: null,
     yaPuntuo: false,
     powerUpped : false,
@@ -37,18 +36,13 @@ var Bola = cc.Class.extend({
         gameLayer.space.addBody(this.body);
         gameLayer.addChild(this.sprite,10);
 
-        this.rebote = 1;
         this.puntos =1;
     },
 
     rebotar:function(){
-        impulso = 1000/this.rebote;
-
-        if(impulso<400)
-            impulso = 400;
+        impulso = 1000;
 
         this.body.applyImpulse(cp.v(0, impulso), cp.v(0, 0));
-        this.rebote++;
     },
 
     eliminar:function(){
