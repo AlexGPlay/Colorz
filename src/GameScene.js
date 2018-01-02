@@ -16,6 +16,8 @@ var GameLayer = cc.Layer.extend({
     propulsores : [],
     bolasEliminar : [],
     bolasToAdd : [],
+    bodiesAndShapesToAdd : [],
+    shapesToEliminar : [],
     powerUps : [],
     selectedPowerUp : null,
     puntuacion:null,
@@ -87,7 +89,6 @@ var GameLayer = cc.Layer.extend({
         this.cierreQuitado = false;
 
         this.cargarMapa();
-        this.scheduleUpdate();
 
         //Añadimos eventos de teclado
         cc.eventManager.addListener({
@@ -111,6 +112,9 @@ var GameLayer = cc.Layer.extend({
                 }
             }
         }, this);
+
+        this.scheduleUpdate();
+        return true;
     },
 
     cargarMapa:function () {
@@ -416,6 +420,12 @@ var GameLayer = cc.Layer.extend({
     update : function(dt){
         this.space.step(dt);
 
+        if(this.bolas.length<=0){
+            cc.director.pause();
+            this.unscheduleUpdate();
+            this.getParent().addChild(new GameOverLayer());
+        }
+
         for(i=0;i<this.bolasEliminar.length;i++){
             var shape = this.bolasEliminar[i].shape;
 
@@ -431,6 +441,14 @@ var GameLayer = cc.Layer.extend({
 
         this.bolasEliminar = [];
 
+        for(i=0;i<this.bodiesAndShapesToAdd.length;i++){
+            var bloque = this.bodiesAndShapesToAdd[i];
+            this.space.addShape(bloque.shape);
+            this.space.addBody(bloque.body);
+        }
+
+        this.bodiesAndShapesToAdd = [];
+
         for(i=0;i<this.bolasToAdd.length;i++){
             var temp = null;
 
@@ -443,6 +461,12 @@ var GameLayer = cc.Layer.extend({
             temp.setPowerUpped(true);
             this.bolas.push(temp);
         }
+
+        for(i=0;i<this.shapesToEliminar.length;i++){
+            this.space.removeShape(this.shapesToEliminar[i]);
+        }
+
+        this.shapesToEliminar = [];
 
         this.bolasToAdd = [];
 

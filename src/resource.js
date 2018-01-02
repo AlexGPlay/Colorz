@@ -14,6 +14,13 @@ var res = {
     bola_5_png : "res/bola_5.png",
     bola_6_png : "res/bola_6.png",
     bola_7_png : "res/bola_7.png",
+    bola_big_png : "res/bola_big.png",
+    bola_2_big_png : "res/bola_2_big.png",
+    bola_3_big_png : "res/bola_3_big.png",
+    bola_4_big_png : "res/bola_4_big.png",
+    bola_5_big_png : "res/bola_5_big.png",
+    bola_6_big_png : "res/bola_6_big.png",
+    bola_7_big_png : "res/bola_7_big.png",
     propulsor_png : "res/propulsor.png",
     pu_puntos_png : "res/pu_puntos.png",
     pu_puntos_plist : "res/pu_puntos.plist",
@@ -21,7 +28,8 @@ var res = {
     pu_duplicar_plist : "res/pu_duplicar.plist",
     pu_triplicar_plist : "res/pu_triplicar.plist",
     pu_size_plist : "res/pu_size.plist",
-    pu_size_png : "res/pu_size.png"
+    pu_size_png : "res/pu_size.png",
+    boton_reanudar_png : "res/boton_reanudar.png"
 };
 
 var g_resources = [];

@@ -52,12 +52,7 @@ var PU_Size = cc.Class.extend({
 
     doStuff:function(bola){
         if(bola.isPowerUpped()==false){
-            var position = cc.p(this.posicion.x,this.posicion.y);
-            var position2 = cc.p(this.posicion.x,this.posicion.y);
-            var bloque = {posicion:position, tipo:bola.getTipo()};
-            var bloque2 = {posicion:position2, tipo:bola.getTipo()};
-            this.gameLayer.bolasToAdd.push(bloque);
-            this.gameLayer.bolasToAdd.push(bloque2);
+            bola.setBigBall(this.posicion);
             bola.setPowerUpped(true);
         }
 

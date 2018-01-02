@@ -6,6 +6,7 @@ var BolaMala = cc.Class.extend({
     puntos: null,
     yaPuntuo: false,
     powerUpped : false,
+    bigBall : false,
 
     ctor:function (gameLayer, posicion) {
         this.gameLayer = gameLayer;
@@ -80,6 +81,17 @@ var BolaMala = cc.Class.extend({
 
     getTipo:function(){
         return 1;
+    },
+
+    setBigBall:function(){
+        if(this.bigBall==false){
+            this.convertToBigBall();
+            this.bigBall = true;
+        }
+    },
+
+    convertToBigBall:function(){
+
     }
 
 });
