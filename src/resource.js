@@ -19,7 +19,9 @@ var res = {
     pu_puntos_plist : "res/pu_puntos.plist",
     pu_duplicar_png : "res/pu_duplicar.png",
     pu_duplicar_plist : "res/pu_duplicar.plist",
-    pu_triplicar_plist : "res/pu_triplicar.plist"
+    pu_triplicar_plist : "res/pu_triplicar.plist",
+    pu_size_plist : "res/pu_size.plist",
+    pu_size_png : "res/pu_size.png"
 };
 
 var g_resources = [];

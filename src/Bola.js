@@ -6,6 +6,7 @@ var Bola = cc.Class.extend({
     puntos: null,
     yaPuntuo: false,
     powerUpped : false,
+    bigBall : false,
 
     ctor:function (gameLayer, posicion) {
         this.gameLayer = gameLayer;
@@ -37,6 +38,7 @@ var Bola = cc.Class.extend({
         gameLayer.addChild(this.sprite,10);
 
         this.puntos =1;
+        this.bigBall = false;
     },
 
     rebotar:function(){
@@ -141,6 +143,10 @@ var Bola = cc.Class.extend({
 
     getTipo:function(){
         return 0;
+    },
+
+    setBigBall:function(bigBall){
+        this.bigBall = bigBall;
     }
 
 });

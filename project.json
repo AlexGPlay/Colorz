@@ -23,6 +23,7 @@
         "src/PU_AumentarPuntos.js",
         "src/PU_DuplicarBolas.js",
         "src/PU_TripleBolas.js",
-        "src/BarraEnemiga.js"
+        "src/BarraEnemiga.js",
+        "src/PU_SizeUp.js"
     ]
 }
