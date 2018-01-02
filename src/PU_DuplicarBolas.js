@@ -37,8 +37,8 @@ var PU_Duplicar = cc.Class.extend({
 
         // forma
         this.shape = new cp.BoxShape(this.body,
-            this.sprite.getContentSize().width ,
-            this.sprite.getContentSize().height);
+            this.sprite.getContentSize().width+25 ,
+            this.sprite.getContentSize().height+25);
 
         this.shape.setCollisionType(tipoPowerUp);
 

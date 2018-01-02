@@ -37,8 +37,8 @@ var PU_Triples = cc.Class.extend({
 
         // forma
         this.shape = new cp.BoxShape(this.body,
-            this.sprite.getContentSize().width ,
-            this.sprite.getContentSize().height);
+            this.sprite.getContentSize().width+75 ,
+            this.sprite.getContentSize().height+75);
 
         this.shape.setCollisionType(tipoPowerUp);
 
@@ -53,8 +53,9 @@ var PU_Triples = cc.Class.extend({
     doStuff:function(bola){
         if(bola.isPowerUpped()==false){
             var position = cc.p(this.posicion.x,this.posicion.y);
+            var position2 = cc.p(this.posicion.x,this.posicion.y);
             var bloque = {posicion:position, tipo:bola.getTipo()};
-            var bloque2 = {posicion:position, tipo:bola.getTipo()};
+            var bloque2 = {posicion:position2, tipo:bola.getTipo()};
             this.gameLayer.bolasToAdd.push(bloque);
             this.gameLayer.bolasToAdd.push(bloque2);
             bola.setPowerUpped(true);
