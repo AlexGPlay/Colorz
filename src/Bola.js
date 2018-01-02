@@ -62,6 +62,63 @@ var Bola = cc.Class.extend({
         this.puntos++;
 
         if(this.puntos==2){
+            this.gameLayer.removeChild(this.sprite);
+
+            var temp = new cc.PhysicsSprite("res/bola_2.png");
+            temp.setBody(this.body);
+            this.sprite = temp;
+
+            this.gameLayer.addChild(this.sprite,10);
+        }
+
+        if(this.puntos==3){
+            this.gameLayer.removeChild(this.sprite);
+
+            var temp = new cc.PhysicsSprite("res/bola_3.png");
+            temp.setBody(this.body);
+            this.sprite = temp;
+
+            this.gameLayer.addChild(this.sprite,10);
+        }
+
+        if(this.puntos==4){
+            this.gameLayer.removeChild(this.sprite);
+
+            var temp = new cc.PhysicsSprite("res/bola_4.png");
+            temp.setBody(this.body);
+            this.sprite = temp;
+
+            this.gameLayer.addChild(this.sprite,10);
+        }
+
+        if(this.puntos==5){
+            this.gameLayer.removeChild(this.sprite);
+
+            var temp = new cc.PhysicsSprite("res/bola_5.png");
+            temp.setBody(this.body);
+            this.sprite = temp;
+
+            this.gameLayer.addChild(this.sprite,10);
+        }
+
+        if(this.puntos==6){
+            this.gameLayer.removeChild(this.sprite);
+
+            var temp = new cc.PhysicsSprite("res/bola_6.png");
+            temp.setBody(this.body);
+            this.sprite = temp;
+
+            this.gameLayer.addChild(this.sprite,10);
+        }
+
+        if(this.puntos==7){
+            this.gameLayer.removeChild(this.sprite);
+
+            var temp = new cc.PhysicsSprite("res/bola_7.png");
+            temp.setBody(this.body);
+            this.sprite = temp;
+
+            this.gameLayer.addChild(this.sprite,10);
         }
 
     },
