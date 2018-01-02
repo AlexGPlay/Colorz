@@ -70,7 +70,7 @@ var PU_AumentarPuntos = cc.Class.extend({
         this.gameLayer.addChild(this.sprite,10);
         this.sprite.runAction(this.animacionBucle);
 
-        this.tiempo=5;
+        this.tiempo=30;
         this.tiempoEnPantalla=0;
     },
 

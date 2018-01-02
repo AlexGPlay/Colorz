@@ -76,7 +76,7 @@ var PU_Triples = cc.Class.extend({
         this.gameLayer.addChild(this.sprite,10);
         this.sprite.runAction(this.animacionBucle);
 
-        this.tiempo=30;
+        this.tiempo=5;
         this.tiempoEnPantalla=0;
     },
 
