@@ -42,6 +42,7 @@ var GameLayer = cc.Layer.extend({
         //Cachear sprites
         cc.spriteFrameCache.addSpriteFrames(res.pu_puntos_plist);
         cc.spriteFrameCache.addSpriteFrames(res.pu_duplicar_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.pu_triplicar_plist);
 
         //Depuracion
         this.depuracion = new cc.PhysicsDebugNode(this.space);
@@ -155,6 +156,7 @@ var GameLayer = cc.Layer.extend({
          for (var i = 0; i < powerUpArray.length; i++) {
              this.powerUps.push( new PU_AumentarPuntos(this, cc.p(powerUpArray[i]["x"],powerUpArray[i]["y"])) );
              this.powerUps.push( new PU_Duplicar(this, cc.p(powerUpArray[i]["x"],powerUpArray[i]["y"])) );
+             this.powerUps.push( new PU_Triples(this, cc.p(powerUpArray[i]["x"],powerUpArray[i]["y"])) );
          }
 
          // Solicitar los objeto dentro de la capa Suelos

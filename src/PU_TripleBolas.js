@@ -1,4 +1,4 @@
-var PU_Duplicar = cc.Class.extend({
+var PU_Triples = cc.Class.extend({
     gameLayer:null,
     sprite:null,
     body:null,
@@ -14,7 +14,7 @@ var PU_Duplicar = cc.Class.extend({
 
         var framesAnimacion = [];
         for (var i = 1; i <= 6; i++) {
-            var str = "pu_duplicar_" + i + ".png";
+            var str = "pu_triplicar_" + i + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(str);
             framesAnimacion.push(frame);
         }
@@ -22,7 +22,7 @@ var PU_Duplicar = cc.Class.extend({
         this.animacionBucle = new cc.RepeatForever(new cc.Animate(animacion));
 
         // Crear Sprite - Cuerpo y forma
-        this.sprite = new cc.PhysicsSprite("#pu_duplicar_1.png");
+        this.sprite = new cc.PhysicsSprite("#pu_triplicar_1.png");
         // Cuerpo estática , no le afectan las fuerzas
         // Cuerpo dinámico, SI le afectan las fuerzas
         this.body = new cp.Body(Infinity,Infinity);
@@ -54,7 +54,9 @@ var PU_Duplicar = cc.Class.extend({
         if(bola.isPowerUpped()==false){
             var position = cc.p(this.posicion.x,this.posicion.y);
             var bloque = {posicion:position, tipo:bola.getTipo()};
+            var bloque2 = {posicion:position, tipo:bola.getTipo()};
             this.gameLayer.bolasToAdd.push(bloque);
+            this.gameLayer.bolasToAdd.push(bloque2);
             bola.setPowerUpped(true);
         }
 
@@ -73,7 +75,7 @@ var PU_Duplicar = cc.Class.extend({
         this.gameLayer.addChild(this.sprite,10);
         this.sprite.runAction(this.animacionBucle);
 
-        this.tiempo=5;
+        this.tiempo=30;
         this.tiempoEnPantalla=0;
     },
 
