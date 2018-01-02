@@ -7,6 +7,7 @@ var BarraEnemiga = cc.Class.extend({
     tiempoEnPantalla:null,
     animacionBucle:null,
     posicion:null,
+    estaEnPantalla:null,
 
     ctor:function (gameLayer, posicion) {
         this.gameLayer = gameLayer;
@@ -28,12 +29,12 @@ var BarraEnemiga = cc.Class.extend({
             this.sprite.getContentSize().width ,
             this.sprite.getContentSize().height);
 
-        gameLayer.space.addShape(this.shape);
         this.sprite.setBody(this.body);
 
         //gameLayer.space.addBody(this.body);
-        gameLayer.addChild(this.sprite,10);
+        this.estaEnPantalla=true;
 
+        this.addToSpace();
     },
 
     timeToDisappear:function(){
@@ -47,7 +48,6 @@ var BarraEnemiga = cc.Class.extend({
     addToSpace:function(){
         this.gameLayer.space.addShape(this.shape);
         this.gameLayer.addChild(this.sprite,10);
-        this.sprite.runAction(this.animacionBucle);
 
         this.tiempo=10;
         this.tiempoEnPantalla=0;
@@ -56,10 +56,21 @@ var BarraEnemiga = cc.Class.extend({
     removeFromSpace:function(){
         this.gameLayer.space.removeShape(this.shape);
         this.gameLayer.removeChild(this.sprite);
+        this.estaEnPantalla=false;
+        this.tiempoEnPantalla=0;
     },
 
     update:function(dt){
         this.tiempoEnPantalla+=dt;
+        if(this.timeToDisappear()==true && this.estaEnPantalla==true){
+        this.removeFromSpace();
+        }
+        if(this.timeToDisappear()==true && this.estaEnPantalla==false){
+        this.addToSpace();
+        this.estaEnPantalla=true;
+        }
+
+
     }
 
 });
