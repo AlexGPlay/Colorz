@@ -26,6 +26,7 @@ var GameLayer = cc.Layer.extend({
     activePowerUp : false,
     time : null,
     timeToPowerUp : null,
+    barrasEnemigas: [],
 
     ctor:function(){
         this._super();
@@ -150,6 +151,11 @@ var GameLayer = cc.Layer.extend({
          for (var i = 0; i < propulsoresArribaArray.length; i++) {
              this.canon = new Cannon(this, cc.p(propulsoresArribaArray[i]["x"],propulsoresArribaArray[i]["y"]));
          }
+                  var grupoBarras = this.mapa.getObjectGroup("BarraEnemiga");
+                  var barrasArray = grupoBarras.getObjects();
+                  for (var i = 0; i < grupoBarras.length; i++) {
+                      this.barrasEnemigas.push(new barraEnemiga(this, cc.p(barrasArray[i]["x"],barrasArray[i]["y"])));
+                  }
 
          var grupoPowerUp = this.mapa.getObjectGroup("PowerUp");
          var powerUpArray = grupoPowerUp.getObjects();
@@ -437,6 +443,10 @@ var GameLayer = cc.Layer.extend({
 
         this.setPosition(cc.p( 0, -150));
         this.canon.update(dt);
+
+        for(i = 0;i<this.barrasEnemigas.length;i++){
+            barrasEnemigas[i].update();
+        }
 
         if(this.canon.getTiempo()>=0){
             this.cerrarCierre();
