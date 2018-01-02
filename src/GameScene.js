@@ -151,11 +151,14 @@ var GameLayer = cc.Layer.extend({
          for (var i = 0; i < propulsoresArribaArray.length; i++) {
              this.canon = new Cannon(this, cc.p(propulsoresArribaArray[i]["x"],propulsoresArribaArray[i]["y"]));
          }
-                  var grupoBarras = this.mapa.getObjectGroup("BarraEnemiga");
-                  var barrasArray = grupoBarras.getObjects();
-                  for (var i = 0; i < grupoBarras.length; i++) {
-                      this.barrasEnemigas.push(new barraEnemiga(this, cc.p(barrasArray[i]["x"],barrasArray[i]["y"])));
-                  }
+
+         var grupoBarrasEnemigas = this.mapa.getObjectGroup("BarraEnemiga");
+         var barrasEnemigasArray = grupoBarrasEnemigas.getObjects();
+         for (var i = 0; i < barrasEnemigasArray.length; i++) {
+             var enemigo = new BarraEnemiga(this, cc.p(barrasEnemigasArray[i]["x"],barrasEnemigasArray[i]["y"]));
+
+             this.propulsores.push(enemigo);
+         }
 
          var grupoPowerUp = this.mapa.getObjectGroup("PowerUp");
          var powerUpArray = grupoPowerUp.getObjects();
