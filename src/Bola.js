@@ -60,6 +60,11 @@ var Bola = cc.Class.extend({
         this.puntos = puntos;
     },
 
+    createPuntos:function(puntos){
+        this.puntos = puntos-1;
+        this.updatePoints();
+    },
+
     updatePoints:function(){
         this.puntos++;
 
@@ -186,6 +191,18 @@ var Bola = cc.Class.extend({
 
     getTipo:function(){
         return 0;
+    },
+
+    getBigBall:function(){
+        return this.bigBall;
+    },
+
+    setBig:function(big, posicion){
+        this.bigBall = big;
+
+        if(this.bigBall==true)
+            this.convertToBigBall(posicion);
+
     },
 
     setBigBall:function(posicion){

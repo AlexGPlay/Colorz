@@ -53,7 +53,7 @@ var PU_Duplicar = cc.Class.extend({
     doStuff:function(bola){
         if(bola.isPowerUpped()==false){
             var position = cc.p(this.posicion.x,this.posicion.y);
-            var bloque = {posicion:position, tipo:bola.getTipo()};
+            var bloque = {posicion:position, tipo:bola.getTipo(), puntos:bola.getPuntos(), bolaGrande:bola.getBigBall()};
             this.gameLayer.bolasToAdd.push(bloque);
             bola.setPowerUpped(true);
         }

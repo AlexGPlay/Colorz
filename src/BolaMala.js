@@ -83,6 +83,15 @@ var BolaMala = cc.Class.extend({
         return 1;
     },
 
+    setBig:function(big){
+        this.bigBall = big;
+    },
+
+    createPuntos:function(puntos){
+        this.puntos = puntos+1;
+        this.updatePoints();
+    },
+
     setBigBall:function(){
         if(this.bigBall==false){
             this.convertToBigBall();
@@ -90,8 +99,10 @@ var BolaMala = cc.Class.extend({
         }
     },
 
-    convertToBigBall:function(){
+    getBigBall:function(){
+        return this.bigBall;
+    },
 
-    }
+    convertToBigBall:function(){    }
 
 });

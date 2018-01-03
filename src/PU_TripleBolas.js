@@ -54,8 +54,8 @@ var PU_Triples = cc.Class.extend({
         if(bola.isPowerUpped()==false){
             var position = cc.p(this.posicion.x,this.posicion.y);
             var position2 = cc.p(this.posicion.x,this.posicion.y);
-            var bloque = {posicion:position, tipo:bola.getTipo()};
-            var bloque2 = {posicion:position2, tipo:bola.getTipo()};
+            var bloque = {posicion:position, tipo:bola.getTipo(), puntos:bola.getPuntos(), bolaGrande:bola.getBigBall()};
+            var bloque2 = {posicion:position2, tipo:bola.getTipo(), puntos:bola.getPuntos(), bolaGrande:bola.getBigBall()};
             this.gameLayer.bolasToAdd.push(bloque);
             this.gameLayer.bolasToAdd.push(bloque2);
             bola.setPowerUpped(true);
