@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="99">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="100">
  <tileset firstgid="1" name="tiles32" tilewidth="32" tileheight="32" tilecount="98" columns="14">
   <image source="../../infinitePlantilla/res/tiles32.png" width="448" height="224"/>
  </tileset>
  <objectgroup name="FalsoSuelo">
   <object id="62" x="-1" y="639">
    <polyline points="0,0 801,1"/>
-  </object>
-  <object id="65" x="0" y="-2">
-   <polyline points="0,0 800,1"/>
   </object>
  </objectgroup>
  <objectgroup name="BarraEnemiga">
@@ -78,6 +75,9 @@
   </object>
   <object id="79" x="799" y="639">
    <polyline points="0,0 2,160"/>
+  </object>
+  <object id="99" x="803.788" y="3.4646">
+   <polyline points="0,0 -801.478,-3.4646"/>
   </object>
  </objectgroup>
 </map>
