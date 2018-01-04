@@ -58,7 +58,6 @@ var GameLayer = cc.Layer.extend({
         //Inicializar bola
         for(i=0;i<20;i++){
             this.bolas.push(new Bola(this, cc.p(300,700)));
-            this.bolas[i].updatePoints();
         }
 
         //Inicializar bolas malas
